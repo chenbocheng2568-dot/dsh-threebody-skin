@@ -1,0 +1,120 @@
+{
+  "name": "dsh-threebody-skin",
+  "version": "0.2.0",
+  "description": "三体皮肤 for DeepSeek Harness：把界面换成《三体》启动片头的冷色调，片尾群山远景作为虚影叠在界面上（星空绕天极缓慢转动、四角光晕、水滴舰队），与 dsh-threebody-boot 同套件。 | Three-Body skin for DSH: the film's cold palette plus a faint closing landscape ghost with a slowly rotating starfield.",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "media",
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "three-body",
+    "三体",
+    "suite",
+    "skin",
+    "theme",
+    "皮肤",
+    "主题",
+    "外观"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "dsh": {
+    "engines": {
+      "dsh": ">=0.2.0-rc.1"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-theme",
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
+      "platform": "web"
+    },
+    "suite": {
+      "id": "dsh-threebody",
+      "role": "skin",
+      "title": "三体",
+      "recommends": [
+        "dsh-threebody-boot"
+      ],
+      "note": "与 dsh-threebody-boot 各自独立安装。同时安装时「三体」设置页由 boot 提供，本插件往里加自己的行；boot 结束片头时若检测到本皮肤，会慢慢淡成同一幅远景虚影。"
+    }
+  },
+  "dshWorkshop": {
+    "schema": "omdsh-workshop-package/v1",
+    "type": "plugin",
+    "integration": {
+      "protocol": "harness-profile",
+      "artifact": "cordis.patch.yml"
+    },
+    "install": {
+      "mode": "transactional",
+      "adapter": "profile-bundle",
+      "failurePolicy": "generation-rollback",
+      "touchesCurrentBeforeActivation": false
+    },
+    "lifecycle": {
+      "activation": "restart-profile",
+      "dispose": "supported"
+    },
+    "permissions": [
+      "web:index-inject",
+      "web:http-route",
+      "dom:overlay",
+      "browser:local-storage"
+    ],
+    "capability": {
+      "id": "skin-threebody",
+      "kind": "ui",
+      "invocation": "Boot the profile's Web GUI: html[data-tbskin] is set, #dsh-threebody-skin-ladder holds the --dsw-* ladder, body>.dshtbs-ghost carries the landscape ghost.",
+      "expected": "The whole shell repaints in the film's cold palette with the closing landscape faintly over it; 设置 → 三体 switches it off or changes the ghost strength."
+    }
+  },
+  "scripts": {
+    "check": "node --check lib/client.js && node --check lib/index.js",
+    "test": "node scripts/test-host.mjs"
+  },
+  "dependencies": {},
+  "author": {
+    "name": "chenbocheng2568-dot",
+    "url": "https://github.com/chenbocheng2568-dot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenbocheng2568-dot/dsh-threebody-skin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chenbocheng2568-dot/dsh-threebody-skin/issues"
+  },
+  "homepage": "https://github.com/chenbocheng2568-dot/dsh-threebody-skin#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}

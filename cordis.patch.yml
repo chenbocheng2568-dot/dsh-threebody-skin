@@ -1,0 +1,6 @@
+# Bundle patch for dsh-threebody-skin: mounts the host half (lib/index.js —
+# ghost image route and version global); the package's `dsh.client` block gets
+# the browser half (lib/client.js) served and loaded.
+- insert:
+    - id: skin-threebody
+      name: dsh-threebody-skin
